@@ -1,4 +1,10 @@
 # cs766-virtual-try-on
+
+## todo
+
+- [ ] https://github.com/iamsusmitha/E-Dressing
+
+## timeline
 - [ ] 2/21: Read and research some more papers. Create a webpage or a shared media for documenting the project.
 - [ ] 3/13: Finish investigations for traditional CV (DRAPE) vs. VITON / VITON-GAN vs. ClothFlow.
 - [ ] 3/20: Start some re-implementation of state-of-the-art paper.
