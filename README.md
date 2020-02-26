@@ -3,7 +3,7 @@
 ## todo
 
 - [ ] https://github.com/iamsusmitha/E-Dressing (Paul will try to run this on his laptop)
-
+- [ ] https://github.com/sergeywong/cp-vton (Chia-Wei refactor cp-vton for easier usage)
 ## timeline
 - [ ] 2/21: Read and research some more papers. Create a webpage or a shared media for documenting the project.
 - [ ] 3/13: Finish investigations for traditional CV (DRAPE) vs. VITON / VITON-GAN vs. ClothFlow.
