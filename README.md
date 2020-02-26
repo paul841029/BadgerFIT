@@ -2,7 +2,7 @@
 
 ## todo
 
-- [ ] https://github.com/iamsusmitha/E-Dressing
+- [ ] https://github.com/iamsusmitha/E-Dressing (Paul will try to run this on his laptop)
 
 ## timeline
 - [ ] 2/21: Read and research some more papers. Create a webpage or a shared media for documenting the project.
