@@ -108,7 +108,7 @@ def add_sprite(img):
     global image_path
     image_path = img
     # print(img.rsplit('/',1))
-    put_sprite(int(img.rsplit('/',1)[0][-1]))
+    put_sprite(5)
     
 #Principal Loop where openCV (magic) ocurs
 def cvloop(run_event):
