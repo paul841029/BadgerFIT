@@ -19,7 +19,8 @@ sh step1-train-gmm.sh # no need this step since we use pretrain model
 sh step2-test-gmm.sh
 sh step3-generate-tom-data.sh
 mv result/gmm_final.pth/train/* data/train/
-mv result/gmm_final.pth/test/* data/test/
+mv result/gmm_final.pth/test/warp-mask data/test/
+mv result/gmm_final.pth/test/warp-cloth data/test/
 sh step4-train-tom.sh # no need this step since we use pretrain model
 sh step5-test-tom.sh
 ```
