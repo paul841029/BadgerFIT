@@ -30,6 +30,7 @@ We have released our trained models of JPPNet on LIP dataset at [google drive](h
 2. Prepare the images and store in $HOME/datasets.
 3. Run evaluate_pose_JPPNet-s2.py for pose estimation and evaluate_parsing_JPPNet-s2.py for human parsing.
 4. The results are saved in $HOME/output
+Note: if there's error in scipy.special, try `export DYLD_LIBRARY_PATH=/usr/local/bin`
 
 ### Training
 1. Download the pre-trained model and store in $HOME/checkpoint.
