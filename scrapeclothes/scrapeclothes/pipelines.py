@@ -37,7 +37,7 @@ class ClothesPipeline(object):
             # Save img to file,
             # filename will be: <brand>-<productID>-<index>-<7 char of hash of url>.
             url_hash = hashlib.md5(url.encode("utf8")).hexdigest()[0:7]
-            filename = "{}-{}-{}-{}.png".format(
+            filename = "{}-{}-{}-{}.jpg".format(
                 item['brand'], item['productID'], i, url_hash)
             file_path = os.path.join(self.directory, filename)
             with open(file_path, "wb") as f:
