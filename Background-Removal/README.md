@@ -1,6 +1,13 @@
 # Background-Removal
 Background removal of an image using OpenCV and Deep Learning.
 
+## some notes...
+
+- PIL not found, need to install `pip3 install pillow` instead.
+- need to use `scipy==1.1.0` instead of latest.
+- put pretrained model from google drive in project root dir.
+- non-person.py uses traditional cv, person.py uses DL
+
 <h2> Setup :- </h2>
 <p> Python -- > Python 3.6.5 </p>
 <p> OS --> Windows 10 (OS build-->17763.253) (Version-->1809) </p>
@@ -55,3 +62,4 @@ Background removal of an image using OpenCV and Deep Learning.
 <p> https://docs.opencv.org/3.4/db/d5c/tutorial_py_bg_subtraction.html </p>
 <p> http://benjamintan.io/blog/2018/05/24/making-transparent-backgrounds-with-numpy-and-opencv-in-python/ </p>
 <p> https://docs.opencv.org/3.4/d3/dc1/tutorial_basic_linear_transform.html </p>
+
