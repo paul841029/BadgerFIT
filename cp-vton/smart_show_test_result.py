@@ -234,7 +234,7 @@ def is_feet_valid(xys):
 
 
 def result_verbose():
-    filename = 'data/test_pairs.txt'
+    filename = 'data/uniqlo_pairs.txt'
     filelist = open(filename).readlines()
     
     paths_dict = {'data/test/cloth' : 1,
@@ -278,7 +278,7 @@ def result_verbose():
 
 
 def result_simple():
-    filename = 'data/test_pairs.txt'
+    filename = 'data/uniqlo_pairs.txt'
     filelist = open(filename).readlines()
     
     paths_dict = {'data/test/cloth' : 1,
@@ -307,7 +307,7 @@ def result_simple():
                 fn = src
             imgname = os.path.join(path, fn + "_{}.jpg".format(paths_dict[path]))
             if 'image-parse' in path:
-                imgname = os.path.join(path, fn + "_{}.png".format(paths_dict[path]))
+                imgname = os.path.join(path, fn + "_{}_vis.png".format(paths_dict[path]))
             img = Image.open(imgname).convert('RGB')
             #img.show()
             paddingimgs.paste(img, (width*i, 0))
@@ -323,7 +323,7 @@ def result_simple():
             paddingimgs.paste(img, (width*i, height))
             i += 1
         '''
-        #paddingimgs.show()
+        paddingimgs.show()
         paddingimgs.save('result_simple/src_{}_dst_{}.png'.format(src, dst))
 
 
