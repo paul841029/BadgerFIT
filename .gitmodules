@@ -1,0 +1,3 @@
+[submodule "OpenCV.js-background-removal"]
+	path = OpenCV.js-background-removal
+	url = https://github.com/DaxChen/OpenCV.js-background-removal.git
