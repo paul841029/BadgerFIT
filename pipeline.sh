@@ -8,6 +8,7 @@ set -ex
 
 # input image model & cloth & cloth-mask
 INPUT_IMAGE_PATH=./example/image/a_0.jpg
+INPUT_IMAGE_POSE_PATH=./example/image/a_0_keypoints.json
 INPUT_IMAGE_CLOTH_PATH=./example/cloth/003514_1.jpg
 INPUT_IMAGE_CLOTH_MASK_PATH=./example/cloth-mask/003514_1.jpg
 FILENAME="$(basename $INPUT_IMAGE_PATH)"
@@ -44,6 +45,7 @@ cp $IMAGE_MODEL_PARSE_PATH $CPVTON_IMAGE_PARSE_DIR
 cp $INPUT_IMAGE_PATH $CPVTON_IMAGE_DIR
 cp $INPUT_IMAGE_CLOTH_PATH $CPVTON_CLOTH_DIR
 cp $INPUT_IMAGE_CLOTH_MASK_PATH $CPVTON_CLOTH_MASK_DIR
+cp $INPUT_IMAGE_POSE_PATH $CPVTON_IMAGE_POSE_DIR
 
 cd cp-vton
 python3 generate_custom_pairs.py $FILENAME $CLOTH_FILENAME
