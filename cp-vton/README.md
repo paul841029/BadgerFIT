@@ -55,11 +55,9 @@ scalars / images :
 
 
 ## 2. Visualize
-
-执行前**STEPs**中所列步骤，后执行```python smart_show_test_result.py```， 可以在```result_simple```文件夹下查看生成结果，示例图片如下，从左到右每列图片意思是：
-
+Run ```python smart_show_test_result.py```. Can see result image in ```result_simple``` <br>
+The image information from left to right is
 [cloth, cloth-mask, model-image, model-image-parse, cloth-warp, cloth-warp-mask, try-on-result]
-
 ![](pics/src_012578_dst_014252.png)
 ![](pics/src_012849_dst_015439.png)
 ![](pics/src_012934_dst_010551.png)
@@ -71,58 +69,14 @@ scalars / images :
 ![](pics/src_019531_dst_015077.png)
 
 
-## 4. Virtual Try-On 技术路线的瓶颈
+## 4. Virtual Try-On Technique bottleneck
 
-虚拟模特图像生成，技术上大致有三条路实现。
-
-“Virtual Try-On”（VTON）是其中一种方式。
-
-
-**VTON技术有如下考虑：**
-
-1. 规避模特生成问题，模特生成本身比较难以做到，难以做到对模特面孔头发、身材真实性等方面的保真度，VTON技术路线规避该问题；
-2. 默认模特已经穿着了和待合成服饰尺寸形状大体一致的服饰，通过对服饰做Warping进而“贴图”，实现Try-On的效果。
-
-
-**技术产品化VTON思路还有些问题：**
-
- 1. 对指定模特，给他换上另外一套衣服，需要妥善处理版权问题；
- 2. 服装和人的搭配问题，如何保持视觉协调；
- 3. 服装穿着在人身上产生的自然形变，因为对服饰做Warping没有根本解决对服饰的理解问题；（如下图条纹状服饰）
- 4. 模特摆拍姿势多样，肢体和服装之间的遮挡问题;（如下图手臂遮挡服饰）
- 5. 当前数据和实验，数据限于上衣短袖类目，图像尺寸256x192, 还属于Toy级别实验；
-
-**条纹状服饰**
-
+**Striped clothes**
 ![](pics/src_012377_dst_017227_p1.png)
 ![](pics/src_019001_dst_010473_p1.png)
 ![](pics/src_013309_dst_002031_p1.png)
 
-**手臂遮挡服饰**
- 
+**Arm hover clothes**
 ![](pics/src_012830_dst_008479_p2.png)
 ![](pics/src_012975_dst_007423_p2.png)
  
- 
-## 5. 算法演进方向
-
-**Virtual Try-on**
-
-致敬诸位的创意，这条路还有很多技术点要解决。
-
-
-```
-.
-├── 2017-VITON-MalongTech
-│   ├── 1705.09368.Pose Guided Person Image Generation.pdf
-│   ├── 1711.08447.VITON- An Image-based Virtual Try-on Network.pdf
-│   ├── 1902.01096.Compatible and Diverse Fashion Image Inpainting.pdf
-│   └── 2002-TPAMI-Shape matching and object recognition using shape contexts.pdf
-├── 2018-CP-VTON-SenseTime
-│   └── 1807.07688.Toward Characteristic-Preserving Image-based Virtual Try-On Network.pdf
-├── 2019-Multi-pose Guided Virtual Try-on Network (MG-VTON)
-│   └── 1902.11026.Towards Multi-pose Guided Virtual Try-on Network.pdf
-├── 2019-WUTON
-│   └── 1906.01347.End-to-End Learning of Geometric Deformations of Feature Maps for Virtual Try-On.pdf 
-```
-

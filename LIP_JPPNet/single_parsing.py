@@ -4,11 +4,14 @@ from datetime import datetime
 import os
 import sys
 import time
+import glob
 import scipy.misc
 import cv2
+import shutil
 from PIL import Image
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
+from tqdm import tqdm
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
@@ -19,21 +22,47 @@ N_CLASSES = 20
 INPUT_SIZE = (384, 384)
 DATA_DIRECTORY = './datasets/examples'
 DATA_LIST_PATH = './datasets/examples/list/val.txt'
-NUM_STEPS = 6 # Number of images in the validation set.
 RESTORE_FROM = './checkpoint/JPPNet-s2'
 OUTPUT_DIR = './output/parsing/val'
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
+def get_opt():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--model_dir', type=str, default="./checkpoint/JPPNet-s2", help="path to the pretrain model dir")
+    parser.add_argument('--image_path', type=str, default="", help="path to the image for parsing")
+    parser.add_argument('--image_dir', type=str, default="./datasets/examples", help="path to the image dir for parsing")
+    parser.add_argument('--image_list', type=str, default="./datasets/examples/list/val.txt", help="path to the image_list")
+
+    opt = parser.parse_args()
+    return opt
+
 def main():
+    opt = get_opt()
     """Create the model and start the evaluation process."""
+
+    # 1. clean up dir    
+    files = glob.glob(opt.image_dir + '/images/*')
+    for f in files:
+        os.remove(f)
+
+    # 2. put img into dir, add line into val.txt
+    base_filename = os.path.basename(opt.image_path)
+    dst_filepath = opt.image_dir + '/images/' + base_filename
+    shutil.copy(opt.image_path, dst_filepath)
+    filename_list = '/' + '/'.join(dst_filepath.split('/')[-2:])
+    f = open(opt.image_list, "w")
+    f.truncate(0)
+    f.write(filename_list)
+    f.close()
+    # print(base_filename, dst_filepath, filename_list)
     
     # Create queue coordinator.
     coord = tf.train.Coordinator()
     h, w = INPUT_SIZE
     # Load reader.
     with tf.name_scope("create_inputs"):
-        reader = ImageReader(DATA_DIRECTORY, DATA_LIST_PATH, None, False, False, coord)
+        reader = ImageReader(opt.image_dir, opt.image_list, None, False, False, coord)
         image = reader.image
         image_rev = tf.reverse(image, tf.stack([1]))
         image_list = reader.image_list
@@ -129,8 +158,8 @@ def main():
     
     # Load weights.
     loader = tf.train.Saver(var_list=restore_var)
-    if RESTORE_FROM is not None:
-        if load(loader, sess, RESTORE_FROM):
+    if opt.model_dir is not "":
+        if load(loader, sess, opt.model_dir):
             print(" [*] Load SUCCESS")
         else:
             print(" [!] Load failed...")
@@ -138,13 +167,10 @@ def main():
     # Start queue threads.
     threads = tf.train.start_queue_runners(coord=coord, sess=sess)
 
-
     # Iterate over training steps.
-    for step in range(len(image_list)):
+    for step in tqdm(range(len(image_list))):
         parsing_ = sess.run(pred_all)
-        if step % 100 == 0:
-            print('step {:d}'.format(step))
-            print (image_list[step])
+        print('step {:d}'.format(step))
         img_split = image_list[step].split('/')
         img_id = img_split[-1][:-4]
 
@@ -159,6 +185,3 @@ def main():
     
 if __name__ == '__main__':
     main()
-
-
-##############################################################333
