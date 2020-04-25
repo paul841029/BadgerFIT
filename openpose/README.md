@@ -8,6 +8,11 @@ sudo docker build . -f Dockerfile.cpuonly -t "seancook/openpose-cpu"
 mkdir -p kp
 mkdir -p rendered
 ```
+* Download pre-trained model. Extra the two files to the current directory
+  ```
+  https://drive.google.com/drive/folders/15SXpfJ5L1W7rzTIiFpEu2zza-Dt27vsX?usp=sharing
+  ```
+
 
 * Run container (assuming input images are in `pwd`)
 ```bash

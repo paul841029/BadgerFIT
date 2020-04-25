@@ -26,9 +26,12 @@ RUN sed -i 's/\<sudo -H\>//g' install_deps.sh; \
 
 WORKDIR /openpose/build
 
+COPY pose_iter_584000.caffemodel /openpose/models/pose/body_25/
+COPY pose_iter_440000.caffemodel /openpose/models/pose/coco/
+
 RUN cmake -DGPU_MODE:String=CPU_ONLY \
           -DDOWNLOAD_BODY_MPI_MODEL:Bool=OFF \
-          -DDOWNLOAD_BODY_COCO_MODEL:Bool=ON \
+          -DDOWNLOAD_BODY_COCO_MODEL:Bool=OFF \
           -DDOWNLOAD_FACE_MODEL:Bool=OFF \
           -DDOWNLOAD_HAND_MODEL:Bool=OFF \
           -DUSE_MKL:Bool=OFF \
