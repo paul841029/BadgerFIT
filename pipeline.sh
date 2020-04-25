@@ -31,26 +31,38 @@ CPVTON_IMAGE_PARSE_DIR=$CPVTON_DATA_DIR/image-parse
 CPVTON_IMAGE_POSE_DIR=$CPVTON_DATA_DIR/pose
 
 # step1. generate parse image
-cd LIP_JPPNet
-python single_parsing.py --image_path ../$INPUT_IMAGE_PATH
-echo $IMAGE_MODEL_PARSE_PATH
-cd ..
-cp $IMAGE_MODEL_PARSE_PATH $CPVTON_IMAGE_PARSE_DIR
+func_LIP_JPPNet()
+{
+    cd LIP_JPPNet
+    python3 single_parsing.py --image_path ../$INPUT_IMAGE_PATH
+    # echo $IMAGE_MODEL_PARSE_PATH
+    cd ..
+    cp $IMAGE_MODEL_PARSE_PATH $CPVTON_IMAGE_PARSE_DIR
+}
+
 
 # step2. generate image pose keypoint
 # using Openpose...
 # now we assume image's pose is already placed in $CPVTON_IMAGE_POSE_DIR
-cp $INPUT_IMAGE_PATH ./openpose
-cd openpose
-sudo docker run -v`pwd`:/data --user $(id -u):$(id -g) \
-	   	-it seancook/openpose-cpu \
-  	   	-display 0 -image_dir /data \
-	   	-write_images /data/rendered \
-	   	--model_pose COCO \
-	   	--write_json /data/kp
-python3 postprcoess.py kp
-INPUT_IMAGE_POSE_PATH=./openpose/kp/"${FILENAME%.*}_keypoints.json" 
-cd ..
+func_openpose()
+{
+    cd openpose; rm -f *.jpg; cd ..
+    cp $INPUT_IMAGE_PATH ./openpose
+    cd openpose
+    sudo docker run -v`pwd`:/data --user $(id -u):$(id -g) \
+                    -it seancook/openpose-cpu \
+                    -display 0 -image_dir /data \
+                    -write_images /data/rendered \
+                    --model_pose COCO \
+                    --write_json /data/kp
+    python3 postprcoess.py kp
+    INPUT_IMAGE_POSE_PATH=./openpose/kp/"${FILENAME%.*}_keypoints.json" 
+    cd ..
+}
+
+# parallel run in background
+func_LIP_JPPNet & func_openpose
+
 
 # step3. generate warp cloth & mask using GMM
 cp $INPUT_IMAGE_PATH $CPVTON_IMAGE_DIR
