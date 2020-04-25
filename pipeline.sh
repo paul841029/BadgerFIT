@@ -8,7 +8,7 @@ set -ex
 
 # input image model & cloth & cloth-mask
 INPUT_IMAGE_PATH=./example/image/a_0.jpg
-INPUT_IMAGE_POSE_PATH=./example/image/a_0_keypoints.json
+INPUT_IMAGE_POSE_PATH=./example/image-pose/a_0_keypoints.json
 INPUT_IMAGE_CLOTH_PATH=./example/cloth/003514_1.jpg
 INPUT_IMAGE_CLOTH_MASK_PATH=./example/cloth-mask/003514_1.jpg
 FILENAME="$(basename $INPUT_IMAGE_PATH)"
@@ -64,4 +64,5 @@ cd ..
 # result is stored at ./cp-vton/result/tom_final.pth/test/try-on/
 CPVTON_OUTPUT_DIR=./cp-vton/result/tom_final.pth/test/try-on/
 OUTPUT_DIR=./example/try-on-result/
+mkdir -p $OUTPUT_DIR
 cp $CPVTON_OUTPUT_DIR$FILENAME $OUTPUT_DIR
