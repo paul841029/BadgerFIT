@@ -9,9 +9,9 @@ mkdir -p kp
 mkdir -p rendered
 ```
 * Download pre-trained model. Put the two files in the current directory
-  ```
-  https://drive.google.com/drive/folders/15SXpfJ5L1W7rzTIiFpEu2zza-Dt27vsX?usp=sharing
-  ```
+```
+https://drive.google.com/drive/folders/15SXpfJ5L1W7rzTIiFpEu2zza-Dt27vsX?usp=sharing
+```
 
 
 * Run container (assuming input images are in `pwd`)
