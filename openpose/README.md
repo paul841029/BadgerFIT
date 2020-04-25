@@ -26,5 +26,5 @@ docker run -v`pwd`:/data --user $(id -u):$(id -g) \
 
 * Postprocess keypoints
 ```bash
-python3 postprcoess.py kp3
+python3 postprcoess.py kp
 ```
