@@ -13,7 +13,7 @@ https://drive.google.com/drive/folders/15SXpfJ5L1W7rzTIiFpEu2zza-Dt27vsX?usp=sha
 ### Build image
 
 ```bash
-docker build -t "virtual-tryon/openpose"
+docker build -t virtual-tryon/openpose
 ```
 
 
@@ -33,15 +33,10 @@ python3 client.py --host=localhost:8080
 
 First login and select project with gcloud CLI
 
-### Build in gcr.io (Google Container Registry)
+
+### Build in gcr.io (Google Container Registry) and Deploy to Cloud Run
 
 ```bash
-gcloud builds submit --config cloudbuild.yaml .
-```
-
-### Deploy to Cloud Run
-
-```bash
-gcloud run deploy --image gcr.io/virtual-tryon/openpose --platform managed --memory 2048
+./build-and-deploy-cloudrun.sh
 ```
 

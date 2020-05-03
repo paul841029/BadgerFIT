@@ -1,0 +1,19 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        docker pull gcr.io/virtual-tryon/lip_jppnet:latest || exit 0
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'gcr.io/virtual-tryon/lip_jppnet:latest',
+      '--cache-from', 'gcr.io/virtual-tryon/lip_jppnet:latest',
+      '.'
+      ]
+
+images: ['gcr.io/virtual-tryon/lip_jppnet:latest']
+
+timeout: '300s'
+

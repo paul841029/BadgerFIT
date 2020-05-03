@@ -1,0 +1,6 @@
+checkpoint/
+output/
+logs/
+model/
+**/__pycache__/
+*.pyc

@@ -1,6 +1,5 @@
 import os
 from flask import Flask, escape, request, jsonify
-from flask_cors import CORS
 import subprocess
 from subprocess import Popen, PIPE
 from flask import escape
@@ -27,7 +26,6 @@ def log(msg, severity='DEBUG'):
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/', methods=['POST'])
 def openpose():
@@ -79,7 +77,7 @@ def openpose():
         return jsonify({
             'error': error,
             'trace': trace
-        })
+        }), 500
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))

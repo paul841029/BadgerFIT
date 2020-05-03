@@ -44,6 +44,10 @@ RUN sed -i 's/\<sudo -H\>//g' install_deps.sh; \
 
 WORKDIR /app/openpose/build
 
+# pre-trained models, put this before cmake do avoid downloading from flacky CMU server
+COPY pose_iter_584000.caffemodel /app/openpose/models/pose/body_25/
+COPY pose_iter_440000.caffemodel /app/openpose/models/pose/coco/
+
 RUN cmake -DGPU_MODE:String=CPU_ONLY \
           -DDOWNLOAD_BODY_MPI_MODEL:Bool=OFF \
           -DDOWNLOAD_BODY_COCO_MODEL:Bool=OFF \
@@ -57,10 +61,6 @@ RUN make
 RUN apt-get remove wget unzip cmake git build-essential -y && apt-get autoremove -y
 # end: build openpose from source
 
-# pre-trained models
-COPY pose_iter_584000.caffemodel /app/openpose/models/pose/body_25/
-COPY pose_iter_440000.caffemodel /app/openpose/models/pose/coco/
-
 
 # Install production dependencies.
 WORKDIR $APP_HOME
@@ -68,7 +68,7 @@ COPY requirements.txt .
 RUN pip3 install --quiet -r requirements.txt
 
 # copy source
-COPY c_resized.jpg .
+# COPY c_resized.jpg .
 COPY run-openpose.sh .
 COPY postprocess.py .
 COPY app.py .

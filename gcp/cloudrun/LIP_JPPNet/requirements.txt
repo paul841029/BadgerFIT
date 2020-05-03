@@ -1,0 +1,13 @@
+# app
+Flask==1.0.2
+google-cloud-logging==1.15.0
+gunicorn
+
+# LIP_JPPNet
+numpy==1.18.2    
+opencv-python==4.0.0.21  
+Pillow==6.0.0     
+scipy==1.4.1     
+tensorflow==1.14.0
+tqdm==4.46.0
+
