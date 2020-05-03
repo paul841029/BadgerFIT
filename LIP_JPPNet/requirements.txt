@@ -3,7 +3,7 @@ numpy==1.18.2
 opencv-python==4.0.0.21  
 Pillow==6.0.0     
 scipy==1.4.1     
-tensorflow==1.14.0
+tensorflow==1.15.2
 imageio
 torch
 torchvision
