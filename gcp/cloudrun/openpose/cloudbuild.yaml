@@ -1,0 +1,19 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        docker pull gcr.io/virtual-tryon/openpose:latest || exit 0
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'gcr.io/virtual-tryon/openpose:latest',
+      '--cache-from', 'gcr.io/virtual-tryon/openpose:latest',
+      '.'
+      ]
+
+images: ['gcr.io/virtual-tryon/openpose:latest']
+
+timeout: '1800s'
+
