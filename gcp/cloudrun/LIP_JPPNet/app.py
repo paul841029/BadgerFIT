@@ -17,8 +17,8 @@ logger = None
 try:
     log_client = logging.Client()
     log_name = 'run.googleapis.com%2Frequests'
-    res = Resource(type="cloud_run",
-            labels={ "project_id": "virtual-tryon/lip_jppnet" })
+    #  res = Resource(type="cloud_run",
+    #          labels={ "project_id": "virtual-tryon/lip_jppnet" })
     logger = log_client.logger(log_name)
 except Exception as error:
     print(error)
@@ -30,7 +30,7 @@ def log(msg, severity='DEBUG'):
     #  logger.log_struct({'severity': severity, 'message': msg})
     #  logger.log_text(msg, severity=severity)
     if logger is not None:
-        logger.log_struct({"message": msg}, resource=res, severity=severity)
+        logger.log_struct({"message": msg}, severity=severity)
     else:
         print('[{}] {}'.format(severity, msg))
 # end: logging setup

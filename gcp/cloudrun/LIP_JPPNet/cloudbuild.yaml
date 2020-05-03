@@ -15,5 +15,5 @@ steps:
 
 images: ['gcr.io/virtual-tryon/lip_jppnet:latest']
 
-timeout: '300s'
+timeout: '1800s'
 

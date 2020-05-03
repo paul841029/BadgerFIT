@@ -3,13 +3,16 @@ import requests
 import base64
 import json
 
-CLOUD_RUN_URL = 'https://openpose-s3mg3fuleq-uc.a.run.app'
+CLOUD_RUN_URL = 'https://lip-jppnet-s3mg3fuleq-uc.a.run.app/'
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--host", default=CLOUD_RUN_URL, help="the host of server, eg. localhost:8080 defaults to cloud run url")
 args = parser.parse_args()
 
-url = 'http://{}'.format(args.host)
+if args.host.startswith('http'):
+    url = args.host
+else:
+    url = 'http://{}'.format(args.host)
 
 img = open('a_0.jpg', 'rb')
 
