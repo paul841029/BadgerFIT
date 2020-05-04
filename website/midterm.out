@@ -1,0 +1,14 @@
+\BOOKMARK [1][-]{section.1}{Problem\040Statement}{}% 1
+\BOOKMARK [1][-]{section.2}{Motivation}{}% 2
+\BOOKMARK [1][-]{section.3}{Background}{}% 3
+\BOOKMARK [1][-]{section.4}{Evaluation}{}% 4
+\BOOKMARK [1][-]{section.5}{Deliverables\040&\040Milestones}{}% 5
+\BOOKMARK [1][-]{section.6}{Midterm\040Report}{}% 6
+\BOOKMARK [2][-]{subsection.6.1}{E-Dressing}{section.6}% 7
+\BOOKMARK [2][-]{subsection.6.2}{Data\040Preparation\040and\040Pre-Processing}{section.6}% 8
+\BOOKMARK [3][-]{subsubsection.6.2.1}{Scraper\040for\040Clothes\040Images}{subsection.6.2}% 9
+\BOOKMARK [3][-]{subsubsection.6.2.2}{Image\040Background\040Removal}{subsection.6.2}% 10
+\BOOKMARK [2][-]{subsection.6.3}{CP-VTON}{section.6}% 11
+\BOOKMARK [3][-]{subsubsection.6.3.1}{Dataset\040&\040Preprocessing}{subsection.6.3}% 12
+\BOOKMARK [3][-]{subsubsection.6.3.2}{Methodology}{subsection.6.3}% 13
+\BOOKMARK [3][-]{subsubsection.6.3.3}{Evaluation}{subsection.6.3}% 14
