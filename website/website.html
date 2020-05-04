@@ -1,0 +1,111 @@
+<head>
+        <link rel="stylesheet" type="text/css" href="pandoc.css">
+</head>
+<h1 id="problem-statement">Problem Statement</h1>
+<p>In this project, we will focus on the evolution of the virtual try-on systems using images of clothes on the Internet and photos of models from e-commerce websites. We will divide developments of the project into three stages. First, we focus on investigating methods with traditional computer vision techniques that we have learned in class such as image stitching and will analyze meaningful insights and trade-off within these approaches. In the second stage, we will turn our attention to the recent deep learning techniques in the virtual try-on application. For example, using generative adversarial nets (GAN) <span class="citation" data-cites="goodfellow2014generative">(Goodfellow et al. 2014)</span> as a generative machine learning model to synthesize virtual image of the model wearing some unseen clothes. Finally, we will implement the current state-of-the-art virtual try-on algorithm from top-tier research publications and evaluate its reproduciblility.</p>
+<h1 id="motivation">Motivation</h1>
+<figure>
+<img src="fit-ar.jpg" style="width:30.0%" alt="" /><figcaption>Virtual Dressing Room <span class="citation" data-cites="vdr">(“Virtual Dressing Room” 2013)</span></figcaption>
+</figure>
+<p>Nowadays, people are purchasing most of their items online and are spending more on it especially in fashion items since browsing different styles and categories of clothes is easy with just a few mouse clicks. Despite the convenience that online shopping provides, customers tend to concern about how a particular fashion item image on the website would fit with themselves. Therefore, there is an urgent demand to provide a quick and simple solution for virtual try-on. Instead of using 3D information such as depth of the image, we believe simply rely on the regular 2D photo is the most convenient way to satisfy this need. With the recent progress in virtual try-on technologies, people can have a better online shopping experience by accurately envisioning themselves wearing the clothes from online categories. Furthermore, virtual try-on technologies not only have demand in online shopping but also in physical shopping. In other words, with the try-on technologies developed on mobile application, customers can save their time of going into the fitting room.</p>
+<h1 id="background">Background</h1>
+<p>Seminal work on virtual fitting with traditional computer vision techniques is DRAPE <span class="citation" data-cites="guan2012drape">(Guan et al. 2012)</span>. DRAPE model is trained with meshes of pose of person and shapes of clothes. They utilized <em>shape deformation gradients</em>, a linear transformation function that aims to align triangles from source and target mesh, to represent deformation between meshes. DRAPE applied the process of deformation due to body shape, rigid part rotation, and body pose. Recent advances in machine learning, in particular, deep neural networks forwards the performance of virtual try-on systems significantly. VITON <span class="citation" data-cites="han2018viton">(Han et al. 2018)</span> is a virtual try-on network with an encoder-decoder generator as its core component. Instead of accessing 3D information such as in previous techniques <span class="citation" data-cites="guan2012drape">(Guan et al. 2012)</span>, VITON only leveraged 2D information in its virtual try-on network. Therefore, VITON reduces the resource footprint and enables a broader set of applications. State-of-art methods such as ClothFlow <span class="citation" data-cites="han2019clothflow">(Han et al. 2019)</span> outperforms VITON by extending the networks in VITON. In particular, ClothFlow divides the try-on framework into three stages. (1) target segmentation map generation. (2) refinement of geometric information in a cascaded warping manner. (3) synthesis of the final result. These extra stages are shown to improve the synthesis of photo-realistic images. In our study, we do not plan to evaluate DARPE against recent deep learning approach such as VITON since DARPE requires 3D meshes whereas VITON is targeted toward 2D image. Instead, although not direcrtly related to your topic, we found a project named E-dressing in the public domain which relies on traditional machine learning techniques to realize virtual fitting room.</p>
+<h1 id="eval">Evaluation</h1>
+<p>We will run VITON and test its performance on our own dataset crawled by the web crawler we developed and examine the VITON’s reproducibility. On the other hand, we will investigate non-neural network techniques for performing the task of virtual fitting.</p>
+<p>We will apply the evaluation methods described by Han et al in <span class="citation" data-cites="han2018viton">(Han et al. 2018)</span>. In particular, we will use the VITON dataset we found online and we will measure the inception score for both traditional techniques and deep learning approach proposed in VITON. Inception score is usually used to quantitatively evaluate the synthesis quality of image generation models. Higher inception scores indicate the evaluated model can produce visually diverse and semantically meaningful images which demonstrates the generality of a given machine learning approach.</p>
+<h1 id="dev-stone">Deliverables &amp; Milestones</h1>
+<p>Our plan is to start by investigating traditional computer vision methods such as image stitching we learned in class and papers such as DRAPE <span class="citation" data-cites="guan2012drape">(Guan et al. 2012)</span> and gradually move onto newer approaches such as deep learning-based techniques. We will try to use pre-trained model if provided for each methods before we try to re-implement the best or current state-of-the-art method.</p>
+<ul>
+<li><p>2/21: Read and research some more papers. Create a webpage or a shared media for documenting the project.</p></li>
+<li><p>3/13: Finish investigations for traditional CV (DRAPE) vs. VITON / VITON-GAN vs. ClothFlow.</p></li>
+<li><p>3/20: Start some re-implementation of state-of-the-art paper.</p></li>
+<li><p>3/31: Finish Project Mid-Term Report.</p></li>
+<li><p>4/10: Finish re-implementation and start evaluation and comparison for different datasets (VITON vs DeepFashion). Find ways to improve existing solutions.</p></li>
+<li><p>4/27, 4/29, or 5/1: Wrap-up and finish slides for Final Project Presentations</p></li>
+<li><p>5/4: Finish Project Webpage.</p></li>
+</ul>
+<h1 id="mid-report">Midterm Report</h1>
+<h2 id="e-dressing">E-Dressing</h2>
+<p>We investigated E-Dressing<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> which is a system that uses traditional machine learning methods, in particular, an ensemble of regression trees <span class="citation" data-cites="kazemi2014one">(Kazemi and Sullivan 2014)</span>, to perform the tasks of virtual try-on. However, after experimenting with the system and running author-provided demos, we would argue that E-Dressing is limited to try-on of items on faces. For example, glasses and earrings. Although this does not align with our original plan of the project, we see the possibility of integrating this feature into our final system to have a full-body try-on feature since CP-VTON (as described below) only support try-on of shirts. We will continue our investigation of using traditional machine learning methods for virtual try-on as the project progresses. Since the outcome of E-Dressing is a bit disappointing, we spend the majority of our time on CP-VTON as described below.</p>
+<h2 id="data-preparation-and-pre-processing">Data Preparation and Pre-Processing</h2>
+<p>In order to gather data for training and evaluation purposes. We have implemented a scraper to scrape clothes images from E-Commerce websites. After scraping the images, we found 2 major problems.</p>
+<p>First, the clothes images are mixed with clothes only, clothes on model front/side/back, detailed parts of the clothes, or even different clothing combinations on the model, etc. We haven’t find out an automated way to pick out only the high quality clothes-only images yet, but we plan to try out existing image classification services.</p>
+<p>Second, most clothes images comes with background, and for our model we need the background-removed image with a binary mask. Therefore, we investigated and tried implementing several background-removal techniques.</p>
+<h3 id="scraper-for-clothes-images">Scraper for Clothes Images</h3>
+<p>We used Scrapy with Python and implemented a website crawler and scraper. In particular, we targeted the E-Commerce website https://uniqlo.com and scraped for their women’s T-shirt images.</p>
+<p>The major problem we faced here (aside from the two mentioned above) is that the amount of women’s T-shirts from any single seller is very little, often only around a few hundred. If we want to get a large amount of high-quality data, this method would not scale well.</p>
+<h3 id="image-background-removal">Image Background Removal</h3>
+<p>In order to remove background from images, we investigated both traditional-CV methods and Machine-Learning methods. We found out that although Machine-Learning methods generally performs better results, it only works well on the same subject when it was trained. For example, a library we tested<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> which uses 100 layers of Tiramisu DensNet trained on images with person works well on removing background from images that contain one person, but performs terribly on even really easy t-shirt-only images (Figure <a href="#fig:bgrm-ml" data-reference-type="ref" data-reference="fig:bgrm-ml">2</a>).</p>
+<p><img src="rmbg/ml-person.png" title="fig:" id="fig:bgrm-ml" style="width:100.0%" alt="Background Removal using Machine Learning methods" /> <img src="rmbg/ml-tshirt.png" title="fig:" id="fig:bgrm-ml" style="width:100.0%" alt="Background Removal using Machine Learning methods" /></p>
+<p>Next we tried using traditional-CV methods for image background removal. Specifically, we tried using Canny edge detection algorithm and Otsu’s thresholding algorithm, using OpenCV. The main problem is that although this works reasonably well on some easy cases (clean monotonic background with contrasted-colored t-shirt), it is hard to tune the thresholds for every kind of t-shirt to have clean results.</p>
+<p>We have created a simple web page<span class="citation" data-cites="opencvjswebsite">(“Our Opencv Image Background Removal Experiment Website,” n.d.)</span> (online demo<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>) using OpenCV.js, in order to visualize the effect of tuning Brightness/Contrast together with comparing two algorithms mentioned above, and to visually check each steps output to further improve the algorithm pipelines. On this web page, we can test out different clothes and change their brightness/contrast and toggle pipeline such as morphing steps to see how they affect the generated contours and masks. The screenshot result for the same easy t-shirt-only is shown in Figure <a href="#fig:bgrm-cv" data-reference-type="ref" data-reference="fig:bgrm-cv">3</a>.</p>
+<figure>
+<img src="rmbg/cv-tshirt.png" id="fig:bgrm-cv" style="width:100.0%" alt="" /><figcaption>Screenshot for website<span class="citation" data-cites="opencvjswebsite">(“Our Opencv Image Background Removal Experiment Website,” n.d.)</span> to test background removal using traditional CV methods</figcaption>
+</figure>
+<p>Images with more complex colors, lower contrast between clothes and backgrounds, more shadows, etc. is still problematic and needs to be improved.</p>
+<h2 id="cp-vton">CP-VTON</h2>
+<p>We’ve reimplemented the paper (Toward Characteristic-Preserving Image-based Virtual Try-On Network) method using the same dataset and model settings.</p>
+<h3 id="dataset-preprocessing">Dataset &amp; Preprocessing</h3>
+<p>For the dataset, we use the same data provided by original VITON &amp; CP-VTON,<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> which use OpenPose<span class="citation" data-cites="cao2018openpose">(Cao et al. 2018)</span> for JSON format pose information, and LIP_JPPNet<span class="citation" data-cites="liang2018look">(Liang et al. 2018)</span> for model image segmentation.</p>
+<h3 id="methodology">Methodology</h3>
+<p>In CP-VTON, they use a two-stage solution to deal with the virtual try-on problem. First, it learns a transformation for transforming the clothes into fitting the body shape of the target person via a new Geometric Matching Module (GMM). Second, to mitigate edge artifacts of warped clothes and make the results more realistic, CP-VTON applies a Try-On Module (TOM) that learns a combination mask to integrate the warped clothes and the rendered image to ensure smoothness.<br />
+<strong>Geometric Matching Module (GMM)</strong></p>
+<ul>
+<li><p>input: Person Representation <span class="math inline"><em>p</em></span> (Keypoints + Segmentation + Human Model Image) + Cloth <span class="math inline"><em>c</em></span></p></li>
+<li><p>output: Warped Clothes <span class="math inline"><em>c</em>′</span></p></li>
+<li><p>loss function: <span class="math inline"><em>L</em><sub>1</sub></span> loss</p></li>
+</ul>
+<p><strong>Try-On Module (TOM)</strong></p>
+<ul>
+<li><p>input: Person Representation <span class="math inline"><em>p</em></span> (Keypoints + Segmentation + Human Model Image) + Warped Clothes <span class="math inline"><em>c</em>′</span> (generated by GMM)</p></li>
+<li><p>output: Human Model with warped cloth</p></li>
+<li><p>loss function: <span class="math inline"><em>L</em><sub>1</sub></span> + <span class="math inline"><em>L</em><sub><em>V</em><em>G</em><em>G</em></sub></span> loss</p></li>
+</ul>
+<figure>
+<img src="cp-vton-imgs/CP-VTON-Model.png" id="fig:cp-vton" style="width:100.0%" alt="" /><figcaption>Overview of CP-VTON</figcaption>
+</figure>
+<h3 id="evaluation">Evaluation</h3>
+<p>We use provided dataset to evaluate the model result in Figure <a href="#fig:provided" data-reference-type="ref" data-reference="fig:provided">6</a>. Furthermore, we use our own data (Cloth + Human Model Image) to see the model effect in Figure <a href="#fig:our" data-reference-type="ref" data-reference="fig:our">8</a>.</p>
+<p>We can see better try-on results in the provided dataset compared to using our dataset. We guess it is due to the difference between training and testing dataset properties. Since we crawl our dataset on the Internet and doing minor preprocess (crop and resize), many aspects can affect the original model inference such as image quality, background removal, cloth texture varies in brands and so on. Moreover, we notice that there’s a limitation using CP-VTON i.e. it will transfer Human Model’s pants into different texture or even color.</p>
+<p><img src="cp-vton-imgs/visual1.png" title="fig:" id="fig:provided" style="width:100.0%" alt="Evaluation of cp-vton using provided dataset" /> <img src="cp-vton-imgs/visual2.png" title="fig:" id="fig:provided" style="width:100.0%" alt="Evaluation of cp-vton using provided dataset" /></p>
+<p><img src="cp-vton-imgs/src_a_dst_018746.png" title="fig:" id="fig:our" style="width:100.0%" alt="Evaluation of cp-vton using our dataset" /> <img src="cp-vton-imgs/src_b_dst_005053.png" title="fig:" id="fig:our" style="width:100.0%" alt="Evaluation of cp-vton using our dataset" /></p>
+
+<h1 id="problem-statement">Reference</h1>
+<div id="refs" class="references hanging-indent" role="doc-bibliography">
+<div id="ref-cao2018openpose">
+<p>Cao, Zhe, Gines Hidalgo, Tomas Simon, Shih-En Wei, and Yaser Sheikh. 2018. “OpenPose: Realtime Multi-Person 2D Pose Estimation Using Part Affinity Fields.” In <em>ArXiv Preprint arXiv:1812.08008</em>.</p>
+</div>
+<div id="ref-goodfellow2014generative">
+<p>Goodfellow, Ian, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, and Yoshua Bengio. 2014. “Generative Adversarial Nets.” In <em>Advances in Neural Information Processing Systems</em>, 2672–80.</p>
+</div>
+<div id="ref-guan2012drape">
+<p>Guan, Peng, Loretta Reiss, David A Hirshberg, Alexander Weiss, and Michael J Black. 2012. “Drape: Dressing Any Person.” <em>ACM Transactions on Graphics (TOG)</em> 31 (4): 1–10.</p>
+</div>
+<div id="ref-han2019clothflow">
+<p>Han, Xintong, Xiaojun Hu, Weilin Huang, and Matthew R Scott. 2019. “Clothflow: A Flow-Based Model for Clothed Person Generation.” In <em>Proceedings of the Ieee International Conference on Computer Vision</em>, 10471–80.</p>
+</div>
+<div id="ref-han2018viton">
+<p>Han, Xintong, Zuxuan Wu, Zhe Wu, Ruichi Yu, and Larry S Davis. 2018. “Viton: An Image-Based Virtual Try-on Network.” In <em>Proceedings of the Ieee Conference on Computer Vision and Pattern Recognition</em>, 7543–52.</p>
+</div>
+<div id="ref-kazemi2014one">
+<p>Kazemi, Vahid, and Josephine Sullivan. 2014. “One Millisecond Face Alignment with an Ensemble of Regression Trees.” In <em>Proceedings of the Ieee Conference on Computer Vision and Pattern Recognition</em>, 1867–74.</p>
+</div>
+<div id="ref-liang2018look">
+<p>Liang, Xiaodan, Ke Gong, Xiaohui Shen, and Liang Lin. 2018. “Look into Person: Joint Body Parsing &amp; Pose Estimation Network and a New Benchmark.” <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em>.</p>
+</div>
+<div id="ref-opencvjswebsite">
+<p>“Our Opencv Image Background Removal Experiment Website.” n.d. <a href="https://opencv-js-background-removal.netlify.com/">https://opencv-js-background-removal.netlify.com/</a>.</p>
+</div>
+<div id="ref-vdr">
+<p>“Virtual Dressing Room.” 2013. <a href="https://tinyurl.com/rwmzpsm">https://tinyurl.com/rwmzpsm</a>.</p>
+</div>
+</div>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p><a href="https://github.com/iamsusmitha/E-Dressing">https://github.com/iamsusmitha/E-Dressing</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p><a href="https://github.com/aadityavikram/Background-Removal">https://github.com/aadityavikram/Background-Removal</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p><a href="https://opencv-js-background-removal.netlify.com/">https://opencv-js-background-removal.netlify.com/</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p><a href="https://drive.google.com/open?id=1MxCUvKxejnwWnoZ-KoCyMCXo3TLhRuTo">https://drive.google.com/open?id=1MxCUvKxejnwWnoZ-KoCyMCXo3TLhRuTo</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
