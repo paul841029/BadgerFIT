@@ -1,7 +1,7 @@
 <head>
         <link rel="stylesheet" type="text/css" href="pandoc.css">
 </head>
-<h1 style="text-align:center">BadgerFIT: An End-to-end Virtual-try-on Framework</h1>
+<h1 style="text-align:center">BadgerFIT<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>1</sup></a>: An End-to-end Virtual-try-on Framework</h1>
 <div style="text-align:center">Chia-Wei Chen, Yu-Huai Chen</div>
 <div style="text-align:center">Chung-Shien Luh</div>
 <div style="text-align:center"><i>University of Wisconsin-Madison</i></div>
@@ -67,7 +67,7 @@ result. These extra stages are shown to improve the synthesis of photo-realistic
 
 <h3 id="e-dressing"><i>E-Dressing</i></h3>
 <p>
-        We investigated E-Dressing<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> which
+        We investigated E-Dressing<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>2</sup></a> which
         is a system that uses traditional machine learning methods, in particular, an ensemble of regression trees <span
                 class="citation" data-cites="kazemi2014one"> (Kazemi and Sullivan 2014)</span>, to perform the tasks of
         virtual try-on. However, after experimenting with the system and running author-provided demos, we would argue
@@ -108,10 +108,10 @@ result. These extra stages are shown to improve the synthesis of photo-realistic
         </p>
 <h4 id="image-background-removal">Image Background Removal</h4>
 <p>
-        In order to remove background from images, we investigated both traditional-CV methods and Machine-Learning methods.
-        We found out that although Machine-Learning methods generally performs better results, it only works well on the
+        In order to remove background from images, we investigated both traditional-CV methods and machine-learning methods.
+        We found out that although machine-learning methods generally performs better results, it only works well on the
         same subject when it was trained. For example, a library we tested<a href="#fn2" class="footnote-ref"
-                id="fnref2" role="doc-noteref"><sup>2</sup></a> which uses 100 layers of Tiramisu DensNet trained on
+                id="fnref2" role="doc-noteref"><sup>3</sup></a> which uses 100 layers of Tiramisu DensNet trained on
         images with person works well on removing background from images that contain one person, but performs terribly
         on even really easy t-shirt-only images (Figure <a href="#fig:bgrm-ml" data-reference-type="ref"
                 data-reference="fig:bgrm-ml">2</a>).
@@ -127,7 +127,7 @@ result. These extra stages are shown to improve the synthesis of photo-realistic
 </p>
 <p>
         We have created a simple web page (online demo<a href="#fn3" class="footnote-ref" id="fnref3"
-                role="doc-noteref"><sup>3</sup></a>) using OpenCV.js, in order to visualize the effect of tuning
+                role="doc-noteref"><sup>4</sup></a>) using OpenCV.js, in order to visualize the effect of tuning
         Brightness/Contrast together with comparing two algorithms mentioned above, and to visually check each steps
         output to further improve the algorithm pipelines. On this web page, we can test out different clothes and
         change their brightness/contrast and toggle pipeline such as morphing steps to see how they affect the generated
@@ -150,7 +150,7 @@ result. These extra stages are shown to improve the synthesis of photo-realistic
 <h4 id="dataset-preprocessing">Dataset &amp; Preprocessing</h4>
 <p>
         For the dataset, we use the same data provided by original VITON &amp; CP-VTON,<a href="#fn4" class="footnote-ref"
-                id="fnref4" role="doc-noteref"><sup>4</sup></a> which use OpenPose<span class="citation"
+                id="fnref4" role="doc-noteref"><sup>5</sup></a> which use OpenPose<span class="citation"
                 data-cites="cao2018openpose">(Cao et al. 2018)</span> for JSON format pose information, and
         LIP_JPPNet<span class="citation" data-cites="liang2018look"> (Liang et al. 2018)</span> for model image
         segmentation.
@@ -284,6 +284,11 @@ result will show as well as the intermediate result such as image segmentation, 
 <section class="footnotes" role="doc-endnotes">
         <hr />
         <ol>
+                        <li id="fn5" role="doc-endnote">
+                                        <p><a href="https://github.com/paul841029/BadgerFIT/releases/tag/v1.0">https://github.com/paul841029/BadgerFIT/releases/tag/v1.0</a><a
+                                                        href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p>
+                                </li>
+ 
                 <li id="fn1" role="doc-endnote">
                         <p><a href="https://github.com/iamsusmitha/E-Dressing">https://github.com/iamsusmitha/E-Dressing</a><a
                                         href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p>
