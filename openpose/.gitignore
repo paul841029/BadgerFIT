@@ -1,0 +1,4 @@
+*.caffemodel
+
+kp/*.json
+rendered/*.png
