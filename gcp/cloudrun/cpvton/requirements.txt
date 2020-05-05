@@ -1,0 +1,11 @@
+# app
+Flask==1.0.2
+google-cloud-logging==1.15.0
+gunicorn
+opencv-python
+
+# cpvton
+torch
+torchvision
+Pillow==6.0.0     
+numpy==1.18.2    

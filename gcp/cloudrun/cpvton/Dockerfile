@@ -12,21 +12,24 @@ ENV APP_HOME /app
 WORKDIR $APP_HOME
 
 # pre-trained models
-COPY checkpoint ./checkpoint
+COPY checkpoints ./checkpoints
 
 # code I seldom edit XD
-COPY kaffe ./kaffe
-COPY utils ./utils
-COPY LIP_model.py .
+COPY networks.py .
 
 # Install production dependencies.
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 
 # copy source
-COPY val.txt .
-COPY run-lip_jppnet.sh .
-COPY single_parsing.py .
+WORKDIR /tmp/cpvton/data
+COPY custom_pairs.txt /tmp/cpvton/data
+WORKDIR $APP_HOME
+COPY cp_dataset.py .
+COPY grid.png .
+COPY visualization.py .
+COPY run-cpvton.sh .
+COPY test.py .
 COPY app.py .
 
 # Run the web service on container startup. Here we use the gunicorn

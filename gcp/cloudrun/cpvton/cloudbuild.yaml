@@ -1,0 +1,19 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        docker pull gcr.io/virtual-tryon/cpvton:latest || exit 0
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'gcr.io/virtual-tryon/cpvton:latest',
+      '--cache-from', 'gcr.io/virtual-tryon/cpvton:latest',
+      '.'
+      ]
+
+images: ['gcr.io/virtual-tryon/cpvton:latest']
+
+timeout: '1800s'
+
