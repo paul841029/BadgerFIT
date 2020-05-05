@@ -1,5 +1,6 @@
 # app
 Flask==1.0.2
+flask-cors
 google-cloud-logging==1.15.0
 gunicorn
 opencv-python

@@ -1,5 +1,6 @@
 import os
 from flask import Flask, escape, request, jsonify
+from flask_cors import CORS
 import subprocess
 from subprocess import Popen, PIPE
 from flask import escape
@@ -38,6 +39,7 @@ def post_process(s):
 
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/', methods=['POST'])
 def openpose():

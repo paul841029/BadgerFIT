@@ -1,5 +1,6 @@
 import os
 from flask import Flask, escape, request, jsonify
+from flask_cors import CORS
 import subprocess
 from subprocess import Popen, PIPE
 from flask import escape
@@ -38,6 +39,7 @@ def log(msg, severity='DEBUG'):
 
 
 app = Flask(__name__)
+cors = CORS(app)
 
 @app.route('/', methods=['POST'])
 def openpose():
@@ -68,8 +70,8 @@ def openpose():
                 cwd='/app')
         stdout, stderr = p.communicate()
         log("done calling run script")
-        log("stdout:\n{}".format(str(stdout).replace('\\n', '\n')))
-        log("stderr:\n{}".format(str(stderr).replace('\\n', '\n')))
+        #  log("stdout:\n{}".format(str(stdout).replace('\\n', '\n')))
+        #  log("stderr:\n{}".format(str(stderr).replace('\\n', '\n')))
 
         with open('/tmp/output/user.png', 'rb') as img_file:
             output_base64 = base64.b64encode(img_file.read()).decode('utf-8')
@@ -79,7 +81,7 @@ def openpose():
         return jsonify({
             'output': output_base64,
             'vis': vis_base64
-        })
+        }), 200
 
     except Exception as error:
         log('uncaught error: {}'.format(error), 'ERROR')
