@@ -7,6 +7,7 @@ import traceback
 import pathlib
 import shutil
 import base64
+import json
 #  from google.cloud import logging
 #  from google.cloud.logging.resource import Resource
 
@@ -23,6 +24,17 @@ def log(msg, severity='DEBUG'):
     #  logger.log_text(msg, severity=severity)
 # end: logging setup
 
+
+def post_process(s):
+    obj = json.loads(s)
+    people = obj['people']
+    for idx, _ in enumerate(people):
+        kp = people[idx]['pose_keypoints_2d']
+        people[idx] = {}
+        people[idx]['pose_keypoints'] = kp
+
+    return json.dumps(obj, indent=2)
+        
 
 
 app = Flask(__name__)
@@ -64,6 +76,9 @@ def openpose():
             kp = kp_file.read()
         with open('/tmp/rendered/user_rendered.png', 'rb') as img_file:
             rendered_base64 = base64.b64encode(img_file.read()).decode('utf-8')
+
+        # post process keypoints
+        kp = post_process(kp)
 
         return jsonify({
             'keypoints': kp,

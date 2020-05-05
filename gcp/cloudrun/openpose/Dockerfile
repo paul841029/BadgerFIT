@@ -70,7 +70,6 @@ RUN pip3 install --quiet -r requirements.txt
 # copy source
 # COPY c_resized.jpg .
 COPY run-openpose.sh .
-COPY postprocess.py .
 COPY app.py .
 
 # ENTRYPOINT ["build/examples/openpose/openpose.bin"]

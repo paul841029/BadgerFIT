@@ -1,0 +1,62 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  annotations:
+    client.knative.dev/user-image: gcr.io/virtual-tryon/openpose
+    run.googleapis.com/client-name: gcloud
+    run.googleapis.com/client-version: 290.0.1
+    serving.knative.dev/creator: ychen874@wisc.edu
+    serving.knative.dev/lastModifier: ychen874@wisc.edu
+  creationTimestamp: '2020-05-05T05:19:05.822473Z'
+  generation: 1
+  labels:
+    cloud.googleapis.com/location: us-central1
+  name: openpose
+  namespace: '694177586913'
+  resourceVersion: AAWk38nzCuA
+  selfLink: /apis/serving.knative.dev/v1/namespaces/694177586913/services/openpose
+  uid: 7b2dfffd-644e-47a2-a8f1-5a2f375b438d
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: '1000'
+        client.knative.dev/user-image: gcr.io/virtual-tryon/openpose
+        run.googleapis.com/client-name: gcloud
+        run.googleapis.com/client-version: 290.0.1
+      name: openpose-00001-zon
+    spec:
+      containerConcurrency: 1
+      containers:
+      - image: gcr.io/virtual-tryon/openpose
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 1000m
+            memory: '2048'
+      timeoutSeconds: 900
+  traffic:
+  - latestRevision: true
+    percent: 100
+status:
+  address:
+    url: https://openpose-s3mg3fuleq-uc.a.run.app
+  conditions:
+  - lastTransitionTime: '2020-05-05T05:19:16.364Z'
+    status: 'True'
+    type: Ready
+  - lastTransitionTime: '2020-05-05T05:19:16.176Z'
+    status: 'True'
+    type: ConfigurationsReady
+  - lastTransitionTime: '2020-05-05T05:19:16.364Z'
+    status: 'True'
+    type: RoutesReady
+  latestCreatedRevisionName: openpose-00001-zon
+  latestReadyRevisionName: openpose-00001-zon
+  observedGeneration: 1
+  traffic:
+  - latestRevision: true
+    percent: 100
+    revisionName: openpose-00001-zon
+  url: https://openpose-s3mg3fuleq-uc.a.run.app

@@ -7,23 +7,23 @@ import traceback
 import pathlib
 import shutil
 import base64
-from google.cloud import logging
-from google.cloud.logging.resource import Resource
+#  from google.cloud import logging
+#  from google.cloud.logging.resource import Resource
 
 ###################
 # logging setup
 ###################
 logger = None
-try:
-    log_client = logging.Client()
-    log_name = 'run.googleapis.com%2Frequests'
-    #  res = Resource(type="cloud_run",
-    #          labels={ "project_id": "virtual-tryon/lip_jppnet" })
-    logger = log_client.logger(log_name)
-except Exception as error:
-    print(error)
-    print('probably google cloud logging Could not automatically determine credentials.')
-    print('only print to stdout now')
+#  try:
+#      #  log_client = logging.Client()
+#      #  log_name = 'run.googleapis.com%2Frequests'
+#      #  res = Resource(type="cloud_run",
+#      #          labels={ "project_id": "virtual-tryon/lip_jppnet" })
+#      #  logger = log_client.logger(log_name)
+#  except Exception as error:
+#      print(error)
+#      print('probably google cloud logging Could not automatically determine credentials.')
+#      print('only print to stdout now')
 
 def log(msg, severity='DEBUG'):
     #  logger.log_text(msg)
