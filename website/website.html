@@ -220,8 +220,10 @@ result. These extra stages are shown to improve the synthesis of photo-realistic
 <h2>Demonstration Walk-through</h2>
 <h3 style="background-color: red; color: white;">ADD ME!</h3>
 <p>
-To wrap up our project, we build a demo website on Google Cloud Platform using both Cloud Function and Cloud Run. 
-In the website, user can upload the cloth and model image ... blablabla
+To wrap up our project, we dockerize each module (openpose, LIP_JPPNet, cp-vton, Background-Removal) and deploy a demo website 
+on Google Cloud Platform using both Cloud Function and Cloud Run. In the website, users can upload whatever cloth and model 
+image they want, then our backend will parse those input and feed into our BadgerFIT pipeline. Finally, the virtual try-on 
+result will show as well as the intermediate result such as image segmentation, image keypoints on the website.
 </p>
 
 <h2 id="problem-statement">Reference</h2>
