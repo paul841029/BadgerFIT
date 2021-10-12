@@ -3,5 +3,5 @@ dlib
 gunicorn==19.4.1
 mysql-connector
 opencv-contrib-python==3.4.2.17
-opencv-python==3.4.2.17
+opencv-python==3.4.7.28
 scipy==1.0.0
