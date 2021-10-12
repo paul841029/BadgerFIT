@@ -2,6 +2,6 @@ cmake==3.12.0
 dlib
 gunicorn==19.4.1
 mysql-connector
-opencv-contrib-python==3.4.2.17
+opencv-contrib-python==4.2.0.32
 opencv-python==3.4.2.17
 scipy==1.0.0
