@@ -5,7 +5,7 @@ google-cloud-logging==1.15.0
 gunicorn
 
 # LIP_JPPNet
-numpy==1.18.2    
+numpy==1.22.0    
 opencv-python==4.0.0.21  
 Pillow==6.0.0     
 scipy==1.4.1     
